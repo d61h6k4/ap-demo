@@ -1,0 +1,20 @@
+#Decodes an input video file into images and a video header.
+node {
+    calculator: "OpenCvVideoDecoderCalculator"
+    input_side_packet: "INPUT_FILE_PATH:input_video_path"
+    output_stream: "VIDEO:input_video"
+    output_stream : "VIDEO_PRESTREAM:input_video_header"
+}
+
+node {
+    calculator: "AutoproductionIceHockeyCalculator"
+    input_stream: "IMAGE_FRAME:input_video"
+    output_stream: "RECT:rois"
+    output_stream: "DETECTIONS:detections"
+}
+
+node {
+    calculator: "AutoproductionDumpCalculator"
+    input_stream: "RECT:rois"
+    input_side_packet: "OUTPUT_FILE_PATH:output_file_path"
+}
