@@ -14,7 +14,7 @@ _MEDIAPIPE_VERSION = "0.8.0"
 
 http_archive(
     name = "mediapipe",
-    #sha256 = "0b129a28864fd2cd2822948621645efb9d62b6d043d1c4da3cf2d01886bfd901",
+    sha256 = "0b129a28864fd2cd2822948621645efb9d62b6d043d1c4da3cf2d01886bfd901",
     strip_prefix = "mediapipe-{}".format(_MEDIAPIPE_VERSION),
     url = "https://github.com/google/mediapipe/archive/{}.tar.gz".format(_MEDIAPIPE_VERSION),
 )
@@ -102,6 +102,19 @@ git_repository(
     name = "autoproduction",
     branch = "main",
     remote = "git@github.com:d61h6k4/autoproduction.git",
+)
+
+http_archive(
+    name = "rules_python",
+    sha256 = "b6d46438523a3ec0f3cead544190ee13223a52f6a6765a29eae7b7cc24cc83a0",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/0.1.0/rules_python-0.1.0.tar.gz",
+)
+
+load("@rules_python//python:pip.bzl", "pip_install")
+
+pip_install(
+    name = "ap_demo_deps",
+    requirements = "//:requirements.txt",
 )
 
 _BAZEL_TOOLCHAINS_VERSION = "4.0.0"
