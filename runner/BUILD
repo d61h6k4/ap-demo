@@ -23,5 +23,6 @@ py_binary(
         requirement("numpy"),
         requirement("pandas"),
         requirement("matplotlib"),
+        requirement("scipy"),
     ],
 )
