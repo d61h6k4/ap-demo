@@ -98,6 +98,40 @@ http_archive(
     ],
 )
 
+http_archive(
+    name = "com_google_protobuf",
+    patch_args = [
+        "-p1",
+    ],
+    patches = [
+        "@mediapipe//third_party:com_google_protobuf_fixes.diff",
+    ],
+    sha256 = "a79d19dcdf9139fa4b81206e318e33d245c4c9da1ffed21c87288ed4380426f9",
+    strip_prefix = "protobuf-3.11.4",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.11.4.tar.gz"],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
+# ABSL cpp library lts_2020_09_23
+http_archive(
+    name = "com_google_absl",
+    patch_args = [
+        "-p1",
+    ],
+    # Remove after https://github.com/abseil/abseil-cpp/issues/326 is solved.
+    patches = [
+        "@mediapipe//third_party:com_google_absl_f863b622fe13612433fdf43f76547d5edda0c93001.diff",
+    ],
+    sha256 = "b3744a4f7a249d5eaf2309daad597631ce77ea62e0fc6abffbab4b4c3dc0fc08",
+    strip_prefix = "abseil-cpp-20200923",
+    urls = [
+        "https://github.com/abseil/abseil-cpp/archive/20200923.tar.gz",
+    ],
+)
+
 git_repository(
     name = "autoproduction",
     branch = "main",
@@ -116,45 +150,45 @@ pip_install(
     name = "ap_demo_deps",
     requirements = "//:requirements.txt",
 )
-
-_BAZEL_TOOLCHAINS_VERSION = "4.0.0"
-
-http_archive(
-    name = "bazel_toolchains",
-    #    sha256 = "4fb3ceea08101ec41208e3df9e56ec72b69f3d11c56629d6477c0ff88d711cf7",
-    strip_prefix = "bazel-toolchains-{}".format(_BAZEL_TOOLCHAINS_VERSION),
-    urls = [
-        "https://github.com/bazelbuild/bazel-toolchains/releases/download/{}/bazel-toolchains-{}.tar.gz".format(_BAZEL_TOOLCHAINS_VERSION, _BAZEL_TOOLCHAINS_VERSION),
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-toolchains/releases/download/{}/bazel-toolchains-{}.tar.gz".format(_BAZEL_TOOLCHAINS_VERSION, _BAZEL_TOOLCHAINS_VERSION),
-    ],
-)
-
-# Build against Kythe master.  Run `bazel sync` to update to the latest commit.
-http_archive(
-    name = "io_kythe",
-    strip_prefix = "kythe-master",
-    urls = ["https://github.com/google/kythe/archive/master.zip"],
-)
-
-load("@io_kythe//:setup.bzl", "kythe_rule_repositories", "maybe")
-
-kythe_rule_repositories()
-
-# TODO(d61h6k4): remove this, when kythe will resolve it.
-# This needs to be loaded before loading the
-# go_* rules.  Normally, this is done by go_rules_dependencies in external.bzl,
-# but because we want to overload some of those dependencies, we need the go_*
-# rules before go_rules_dependencies.  Likewise, we can't precisely control
-# when loads occur within a Starlark file so we now need to load this
-# manually...
-load("@io_bazel_rules_go//go/private:repositories.bzl", "go_name_hack")
-
-maybe(
-    go_name_hack,
-    name = "io_bazel_rules_go_name_hack",
-    is_rules_go = False,
-)
-
-load("@io_kythe//:external.bzl", "kythe_dependencies")
-
-kythe_dependencies()
+#
+# _BAZEL_TOOLCHAINS_VERSION = "4.0.0"
+#
+# http_archive(
+#     name = "bazel_toolchains",
+#     #    sha256 = "4fb3ceea08101ec41208e3df9e56ec72b69f3d11c56629d6477c0ff88d711cf7",
+#     strip_prefix = "bazel-toolchains-{}".format(_BAZEL_TOOLCHAINS_VERSION),
+#     urls = [
+#         "https://github.com/bazelbuild/bazel-toolchains/releases/download/{}/bazel-toolchains-{}.tar.gz".format(_BAZEL_TOOLCHAINS_VERSION, _BAZEL_TOOLCHAINS_VERSION),
+#         "https://mirror.bazel.build/github.com/bazelbuild/bazel-toolchains/releases/download/{}/bazel-toolchains-{}.tar.gz".format(_BAZEL_TOOLCHAINS_VERSION, _BAZEL_TOOLCHAINS_VERSION),
+#     ],
+# )
+#
+# # Build against Kythe master.  Run `bazel sync` to update to the latest commit.
+# http_archive(
+#     name = "io_kythe",
+#     strip_prefix = "kythe-master",
+#     urls = ["https://github.com/google/kythe/archive/master.zip"],
+# )
+#
+# load("@io_kythe//:setup.bzl", "kythe_rule_repositories", "maybe")
+#
+# kythe_rule_repositories()
+#
+# # TODO(d61h6k4): remove this, when kythe will resolve it.
+# # This needs to be loaded before loading the
+# # go_* rules.  Normally, this is done by go_rules_dependencies in external.bzl,
+# # but because we want to overload some of those dependencies, we need the go_*
+# # rules before go_rules_dependencies.  Likewise, we can't precisely control
+# # when loads occur within a Starlark file so we now need to load this
+# # manually...
+# load("@io_bazel_rules_go//go/private:repositories.bzl", "go_name_hack")
+#
+# maybe(
+#     go_name_hack,
+#     name = "io_bazel_rules_go_name_hack",
+#     is_rules_go = False,
+# )
+#
+# load("@io_kythe//:external.bzl", "kythe_dependencies")
+#
+# kythe_dependencies()
