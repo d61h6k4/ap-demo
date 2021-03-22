@@ -1,4 +1,4 @@
-VIDEO_NAME = mab8a08339_012500_10min
+VIDEO_NAME = mab8a08339_012900_1min
 
 build:
 	bazel build --define MEDIAPIPE_DISABLE_GPU=1 //runner:ap_demo

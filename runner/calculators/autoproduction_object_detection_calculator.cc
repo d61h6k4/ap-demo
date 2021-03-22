@@ -80,8 +80,8 @@ AutoproductionObjectDetectionCalculator::Open(CalculatorContext *cc) {
   cuda_img_ = cv::cuda::GpuMat(800, 3840, CV_8UC3, img_ptr_);
 
   // TODO(d61h6k4) Can we do it better?
-  odmodel_.reset(new Autoproduction::Inference::ObjectDetectionModel<1, 3>(
-      "//tmp/models/object_detection_football.onnx", 800, 3840, 768, 1280,
+  odmodel_.reset(new Autoproduction::Inference::ObjectDetectionModel<1, 5>(
+      "//tmp/models/object_detection_football.onnx", 800, 3840, 640, 640,
       stream_, 0, logger_));
 
   return ::mediapipe::OkStatus();

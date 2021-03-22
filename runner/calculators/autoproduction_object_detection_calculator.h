@@ -34,7 +34,7 @@ public:
 private:
   std::shared_ptr<Logger> logger_;
   cudaStream_t stream_;
-  std::unique_ptr<Autoproduction::Inference::ObjectDetectionModel<1, 3>>
+  std::unique_ptr<Autoproduction::Inference::ObjectDetectionModel<1, 5>>
       odmodel_;
 
   Npp8u *img_ptr_;
