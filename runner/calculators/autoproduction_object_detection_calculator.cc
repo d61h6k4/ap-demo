@@ -111,7 +111,7 @@ AutoproductionObjectDetectionCalculator::Process(CalculatorContext *cc) {
     std::vector<Detection> persons_detection;
     std::vector<Detection> sportballs_detection;
     for (const auto &detection : dets) {
-      if (detection.score_ > 0.5f) {
+      if (detection.score_ > 0.3f) {
         if (detection.class_name_ == Autoproduction::Util::ClassName::person_) {
           persons_detection.push_back(
               TensorToDetection(detection.bbox_.ymin_, detection.bbox_.xmin_,

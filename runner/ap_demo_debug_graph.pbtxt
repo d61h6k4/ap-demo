@@ -1,8 +1,8 @@
-# profiler_config {
-#   trace_enabled: true
-#   enable_profiler: true
-#   trace_log_interval_count: 200
-# }
+profiler_config {
+  trace_enabled: true
+  enable_profiler: true
+  trace_log_interval_count: 200
+}
 #Decodes an input video file into images and a video header.
 node {
     calculator: "OpenCvVideoDecoderCalculator"
