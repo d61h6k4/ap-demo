@@ -81,7 +81,7 @@ AutoproductionObjectDetectionCalculator::Open(CalculatorContext *cc) {
 
   // TODO(d61h6k4) Can we do it better?
   odmodel_.reset(new Autoproduction::Inference::ObjectDetectionModel<1, 5>(
-      "//tmp/models/object_detection_football.onnx", 800, 3840, 640, 640,
+      "//tmp/models/object_detection_football.onnx", false, 800, 3840, 640, 640,
       stream_, 0, logger_));
 
   return ::mediapipe::OkStatus();
