@@ -16,7 +16,8 @@
 
 namespace mediapipe {
 struct Logger : public nvinfer1::ILogger {
-  void log(nvinfer1::ILogger::Severity severity, const char *msg) noexcept override {
+  void log(nvinfer1::ILogger::Severity severity,
+           const char *msg) noexcept override {
     if (severity != nvinfer1::ILogger::Severity::kINFO &&
         severity != nvinfer1::ILogger::Severity::kVERBOSE) {
       LOG(ERROR) << msg;
