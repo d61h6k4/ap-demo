@@ -135,7 +135,7 @@ http_archive(
 git_repository(
     name = "autoproduction",
     branch = "main",
-    remote = "git@github.com:d61h6k4/autoproduction.git",
+    remote = "https://github.com/d61h6k4/autoproduction.git",
 )
 
 http_archive(
