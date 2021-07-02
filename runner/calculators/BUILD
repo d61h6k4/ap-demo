@@ -16,6 +16,7 @@ cc_library(
         "@mediapipe//mediapipe/framework/formats:image_frame_opencv",
         "@mediapipe//mediapipe/framework/formats:rect_cc_proto",
         "@mediapipe//mediapipe/framework/port:ret_check",
+        "@com_google_ortools//ortools/algorithms:hungarian",
     ],
     alwayslink = 1,
 )

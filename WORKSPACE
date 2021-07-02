@@ -10,6 +10,30 @@ load("//third_party:tensorrt_configure.bzl", "tensorrt_configure")
 
 tensorrt_configure(name = "autoproduction_config_tensorrt")
 
+
+# OR-Tools shall be 8.0 due to conflict with mediapipe
+git_repository(
+    name = "com_google_ortools",
+    commit = "8d19323", # release v8.0
+    remote = "https://github.com/google/or-tools.git",
+)
+
+http_archive(
+    name = "bliss",
+    build_file = "@com_google_ortools//bazel:bliss.BUILD",
+    patches = ["@com_google_ortools//bazel:bliss-0.73.patch"],
+    sha256 = "f57bf32804140cad58b1240b804e0dbd68f7e6bf67eba8e0c0fa3a62fd7f0f84",
+    url = "http://www.tcs.hut.fi/Software/bliss/bliss-0.73.zip",
+)
+
+http_archive(
+    name = "scip",
+    build_file = "@com_google_ortools//bazel:scip.BUILD",
+    patches = ["@com_google_ortools//bazel:scip.patch"],
+    sha256 = "033bf240298d3a1c92e8ddb7b452190e0af15df2dad7d24d0572f10ae8eec5aa",
+    url = "https://github.com/google/or-tools/releases/download/v7.7/scip-7.0.1.tgz",
+)
+
 _MEDIAPIPE_VERSION = "0.8.0"
 
 http_archive(
