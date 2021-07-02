@@ -13,6 +13,7 @@
 #include "mediapipe/framework/formats/detection.pb.h"
 #include "mediapipe/framework/formats/image_frame_opencv.h"
 #include "mediapipe/framework/port/status.h"
+#include "main/kalman_tracker/kalman_tracker.h"
 
 namespace mediapipe {
 struct Logger : public nvinfer1::ILogger {
@@ -40,5 +41,6 @@ private:
 
   Npp8u *img_ptr_;
   cv::cuda::GpuMat cuda_img_;
+  std::unique_ptr<Tracker::SortTracker> tracker_;
 };
 } // namespace mediapipe

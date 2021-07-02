@@ -10,6 +10,11 @@ load("//third_party:tensorrt_configure.bzl", "tensorrt_configure")
 
 tensorrt_configure(name = "autoproduction_config_tensorrt")
 
+git_repository(
+    name = "sort_tracker",
+    branch = "feature/common_opencv",
+    remote = "https://github.com/d61h6k4/SORT_tracker.git",
+)
 
 # OR-Tools shall be 8.0 due to conflict with mediapipe
 git_repository(
